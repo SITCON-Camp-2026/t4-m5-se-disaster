@@ -7,11 +7,31 @@ import type { Phase0JudgementDraft, Phase0MessyRecord } from "./phase0-types";
 
 type DraftMap = Record<string, Phase0JudgementDraft>;
 
+type SavedDraftSet = {
+  id: string;
+  label: string;
+  savedAt: string;
+  drafts: DraftMap;
+};
+
 function createInitialDrafts(records: Phase0MessyRecord[]): DraftMap {
   return Object.fromEntries(
     records
       .slice(0, 6)
       .map((record) => [record.id, createPhase0Judgement(record)]),
+  );
+}
+
+function cloneDrafts(drafts: DraftMap): DraftMap {
+  return Object.fromEntries(
+    Object.entries(drafts).map(([recordId, draft]) => [
+      recordId,
+      {
+        ...draft,
+        evidence: [...draft.evidence],
+        blockers: [...draft.blockers],
+      },
+    ]),
   );
 }
 
@@ -26,6 +46,7 @@ export function Phase0Workbench({
 }) {
   const initialDrafts = useMemo(() => createInitialDrafts(records), [records]);
   const [drafts, setDrafts] = useState<DraftMap>(initialDrafts);
+  const [savedDrafts, setSavedDrafts] = useState<SavedDraftSet[]>([]);
   const selectedRecord =
     records.find((record) => record.id === selectedRecordId) ?? records[0];
   const selectedDraft = drafts[selectedRecord.id];
@@ -59,8 +80,39 @@ export function Phase0Workbench({
     });
   }
 
-  function resetDrafts() {
-    setDrafts(createInitialDrafts(records));
+  function resetSelectedDraft() {
+    setDrafts((currentDrafts) => ({
+      ...currentDrafts,
+      [selectedRecord.id]: createPhase0Judgement(selectedRecord),
+    }));
+  }
+
+  function saveDraftSnapshot() {
+    const savedAt = new Date().toLocaleTimeString("zh-TW", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    setSavedDrafts((currentSavedDrafts) => [
+      {
+        id: `draft-${Date.now()}`,
+        label: `草稿快照 ${currentSavedDrafts.length + 1}`,
+        savedAt,
+        drafts: cloneDrafts(drafts),
+      },
+      ...currentSavedDrafts,
+    ]);
+  }
+
+  function restoreDraftSnapshot(savedDraftSet: SavedDraftSet) {
+    setDrafts(cloneDrafts(savedDraftSet.drafts));
+  }
+
+  function deleteDraftSnapshot(savedDraftSetId: string) {
+    setSavedDrafts((currentSavedDrafts) =>
+      currentSavedDrafts.filter(
+        (savedDraftSet) => savedDraftSet.id !== savedDraftSetId,
+      ),
+    );
   }
 
   return (
@@ -138,10 +190,47 @@ export function Phase0Workbench({
             <button type="button" onClick={() => createDraft(selectedRecord)}>
               建立目前草稿
             </button>
-            <button type="button" onClick={resetDrafts}>
-              重設為 6 筆保守草稿
+            <button type="button" onClick={saveDraftSnapshot}>
+              儲存目前草稿
+            </button>
+            <button type="button" onClick={resetSelectedDraft}>
+              重設當前草稿
             </button>
           </div>
+
+          <section className="saved-drafts" aria-label="草稿暫存區">
+            <h4>草稿暫存區</h4>
+            <p>只保留在本次開啟頁面期間，不會寫回原始資訊。</p>
+            {savedDrafts.length === 0 ? (
+              <p className="saved-drafts__empty">尚未儲存草稿快照</p>
+            ) : (
+              <ul>
+                {savedDrafts.map((savedDraftSet) => (
+                  <li key={savedDraftSet.id}>
+                    <div>
+                      <strong>{savedDraftSet.label}</strong>
+                      <span>
+                        {Object.keys(savedDraftSet.drafts).length} 筆，儲存於{" "}
+                        {savedDraftSet.savedAt}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => restoreDraftSnapshot(savedDraftSet)}
+                    >
+                      還原
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => deleteDraftSnapshot(savedDraftSet.id)}
+                    >
+                      刪除
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
         </aside>
       </div>
     </div>

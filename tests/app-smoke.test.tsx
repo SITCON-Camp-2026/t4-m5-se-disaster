@@ -70,4 +70,42 @@ describe("App", () => {
 
     expect(screen.getByText("M-001 的候選判斷")).toBeInTheDocument();
   });
+
+  it("can save and delete a draft snapshot for the current page session", () => {
+    render(<App />);
+
+    fireEvent.click(screen.getByRole("button", { name: "整理工作台" }));
+
+    expect(screen.getByText("尚未儲存草稿快照")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "儲存目前草稿" }));
+
+    expect(screen.getByText("草稿快照 1")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "還原" })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "刪除" }));
+
+    expect(screen.queryByText("草稿快照 1")).not.toBeInTheDocument();
+    expect(screen.getByText("尚未儲存草稿快照")).toBeInTheDocument();
+  });
+
+  it("resets only the currently selected draft", () => {
+    render(<App />);
+
+    fireEvent.click(screen.getByRole("button", { name: "整理工作台" }));
+    fireEvent.change(screen.getByLabelText("人類修正 / 質疑 agent 的地方"), {
+      target: { value: "這是人工測試備註" },
+    });
+
+    expect(
+      screen.getByText("1 筆草稿有人類修正或質疑紀錄"),
+    ).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "重設當前草稿" }));
+
+    expect(
+      screen.getByText("0 筆草稿有人類修正或質疑紀錄"),
+    ).toBeInTheDocument();
+    expect(screen.getByText("目前有 6 筆可編輯整理草稿")).toBeInTheDocument();
+  });
 });

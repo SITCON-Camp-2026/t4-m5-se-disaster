@@ -322,6 +322,7 @@ button {
 }
 
 .workbench__actions button,
+.saved-drafts button,
 .empty-draft button,
 .danger-button {
   border: 1px solid #cfd8e3;
@@ -334,6 +335,53 @@ button {
 .danger-button {
   border-color: #efb5b1;
   color: #9f1f17;
+}
+
+.saved-drafts {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+  border-top: 1px solid #dbe4ef;
+  padding-top: 16px;
+}
+
+.saved-drafts h4,
+.saved-drafts p {
+  margin: 0;
+}
+
+.saved-drafts p {
+  color: #5f6b7a;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.saved-drafts ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.saved-drafts li {
+  display: grid;
+  gap: 8px;
+  border: 1px solid #dbe4ef;
+  border-radius: 8px;
+  padding: 10px;
+  background: #ffffff;
+}
+
+.saved-drafts li div {
+  display: grid;
+  gap: 2px;
+}
+
+.saved-drafts li span,
+.saved-drafts__empty {
+  color: #5f6b7a;
+  font-size: 0.85rem;
 }
 
 .status-badge,

@@ -31,6 +31,7 @@
 | 09:55 | Phase 0 | 草稿內容取捨   | 不把 M-001 到 M-012 寫成固定標準答案，只放保守安全預設與可編輯欄位             | 採用        | 避免把 agent 分析包裝成正式整理後資料，保留人類檢查空間                            | `src/features/phase-0/phase0-heuristics.ts`                                                |
 | 10:12 | Phase 0 | 復盤分享       | 用 M-005 說明 `sourceType` 是 `official_notice` 也不能當官方確認               | 採用        | 原文說截圖日期不明、也不確定是不是官方公告，仍要看 `verificationStatus` 與原文內容 | `docs/phase0-observations.md`, `docs/ai-log.md`                                            |
 | 10:15 | Phase 0 | 復盤分享       | 用 M-012 說明「疑似需要藥品」不能直接變成送藥任務                              | 採用        | 來電者不在現場，也無法確認親友位置；健康與位置資訊都需要人工確認                   | `docs/phase0-observations.md`, `docs/ai-log.md`                                            |
+| 10:20 | Phase 0 | 草稿暫存       | 在整理工作台加入本次頁面工作階段的草稿快照，可儲存、還原、刪除                 | 採用        | 只存在 React state，不使用後端、資料庫或 `localStorage`，避免把草稿誤當正式資料    | `src/features/phase-0/Phase0Workbench.tsx`                                                 |
 
 ## 範例
 
