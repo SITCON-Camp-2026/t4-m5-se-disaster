@@ -30,6 +30,7 @@
 | 09:50 | Phase 0 | 檢查 AI 風險   | 提醒 `sourceType` 不等於已確認，`needs_review` / `unverified` 不能顯示成已確認 | 採用        | 這是本階段主要安全邊界，畫面仍保留待人工確認與未查核標示                           | `src/components/status-labels.ts`, `docs/phase0-observations.md`                           |
 | 09:55 | Phase 0 | 草稿內容取捨   | 不把 M-001 到 M-012 寫成固定標準答案，只放保守安全預設與可編輯欄位             | 採用        | 避免把 agent 分析包裝成正式整理後資料，保留人類檢查空間                            | `src/features/phase-0/phase0-heuristics.ts`                                                |
 | 10:12 | Phase 0 | 復盤分享       | 用 M-005 說明 `sourceType` 是 `official_notice` 也不能當官方確認               | 採用        | 原文說截圖日期不明、也不確定是不是官方公告，仍要看 `verificationStatus` 與原文內容 | `docs/phase0-observations.md`, `docs/ai-log.md`                                            |
+| 10:15 | Phase 0 | 復盤分享       | 用 M-012 說明「疑似需要藥品」不能直接變成送藥任務                              | 採用        | 來電者不在現場，也無法確認親友位置；健康與位置資訊都需要人工確認                   | `docs/phase0-observations.md`, `docs/ai-log.md`                                            |
 
 ## 範例
 
@@ -47,6 +48,7 @@
 
 - AI 容易把看起來完整的句子整理成確定事實，也容易把來源類型誤解成查核狀態。
 - 例如 M-005 的 `sourceType` 是 `official_notice`，但原文自己說截圖日期不明、也不確定是不是官方公告，所以不能當成官方確認。
+- 例如 M-012 只說「疑似需要藥品」，不能直接推成送藥任務；位置、本人狀況與同意都還沒有確認。
 
 ### 下次使用 AI 開發前，我們會先準備
 
