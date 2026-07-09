@@ -191,6 +191,20 @@ button {
   gap: 8px;
 }
 
+.queue-summary {
+  display: grid;
+  gap: 4px;
+  border-radius: 8px;
+  padding: 10px;
+  background: #f4f7fb;
+  color: #344054;
+  font-size: 0.9rem;
+}
+
+.queue-summary span {
+  color: #5f6b7a;
+}
+
 .workbench__queue button {
   display: grid;
   gap: 6px;
@@ -245,10 +259,81 @@ button {
   margin-bottom: 8px;
 }
 
+.draft-form {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.draft-form label,
+.draft-textarea {
+  display: grid;
+  gap: 6px;
+}
+
+.draft-form span,
+.draft-textarea span {
+  color: #5f6b7a;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.draft-form select,
+.draft-textarea textarea {
+  width: 100%;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  padding: 10px;
+  background: #ffffff;
+  color: #17202a;
+  font: inherit;
+}
+
+.draft-textarea textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.draft-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  border: 1px solid #f0d28a;
+  border-radius: 8px;
+  padding: 10px;
+  background: #fffaf0;
+  font-weight: 700;
+}
+
+.draft-checkbox input {
+  margin-top: 4px;
+}
+
 .judgement-card ul,
 .workbench__checklist ul {
   padding-left: 20px;
   line-height: 1.6;
+}
+
+.workbench__actions {
+  display: grid;
+  gap: 8px;
+}
+
+.workbench__actions button,
+.empty-draft button,
+.danger-button {
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.danger-button {
+  border-color: #efb5b1;
+  color: #9f1f17;
 }
 
 .status-badge,
@@ -317,6 +402,7 @@ button {
     grid-template-columns: 1fr;
   }
 
+  .draft-form,
   .judgement-summary {
     grid-template-columns: 1fr;
   }

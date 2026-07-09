@@ -45,17 +45,29 @@ describe("App", () => {
     expect(screen.getAllByText("未查核").length).toBeGreaterThan(0);
   });
 
-  it("keeps draft CRUD as learner work instead of starter output", () => {
+  it("supports editable phase 0 drafts without changing review states", () => {
     render(<App />);
 
     fireEvent.click(screen.getByRole("button", { name: "整理工作台" }));
 
-    expect(screen.getByText("尚未建立整理草稿")).toBeInTheDocument();
+    expect(screen.getByText("目前有 6 筆可編輯整理草稿")).toBeInTheDocument();
     expect(
-      screen.getByText(/請 agent 加上建立、編輯、刪除或重設整理草稿/),
+      screen.getByRole("button", { name: "刪除這筆草稿" }),
     ).toBeInTheDocument();
-    expect(
-      screen.queryByText(/已產生 \d+ 筆安全邊界草稿/),
-    ).not.toBeInTheDocument();
+    expect(screen.getByLabelText("選擇原始資訊")).toHaveTextContent("已有草稿");
+    expect(screen.queryByText("已確認")).not.toBeInTheDocument();
+  });
+
+  it("can delete and recreate a draft in the workbench", () => {
+    render(<App />);
+
+    fireEvent.click(screen.getByRole("button", { name: "整理工作台" }));
+    fireEvent.click(screen.getByRole("button", { name: "刪除這筆草稿" }));
+
+    expect(screen.getByText("M-001 還沒有草稿")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "建立這筆草稿" }));
+
+    expect(screen.getByText("M-001 的候選判斷")).toBeInTheDocument();
   });
 });
