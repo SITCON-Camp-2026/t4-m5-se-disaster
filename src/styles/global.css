@@ -337,6 +337,140 @@ button {
   color: #9f1f17;
 }
 
+.signup-panel {
+  display: grid;
+  gap: 16px;
+}
+
+.signup-notice,
+.anonymous-signup-form,
+.signup-preview,
+.signup-checks {
+  border: 1px solid #dbe4ef;
+  border-radius: 8px;
+  padding: 16px;
+  background: #fbfcfe;
+}
+
+.signup-notice {
+  border-left: 4px solid #8a5a00;
+  background: #fffaf0;
+}
+
+.signup-notice h3,
+.anonymous-signup-form h3,
+.signup-preview h3,
+.signup-checks h3 {
+  margin: 0 0 8px;
+}
+
+.signup-notice p,
+.signup-checks li {
+  line-height: 1.6;
+}
+
+.signup-checks ul {
+  margin-bottom: 0;
+  padding-left: 20px;
+}
+
+.anonymous-signup-form {
+  display: grid;
+  gap: 14px;
+}
+
+.anonymous-signup-form label,
+.signup-textarea {
+  display: grid;
+  gap: 6px;
+}
+
+.anonymous-signup-form label span,
+.signup-textarea span,
+.anonymous-signup-form legend {
+  color: #5f6b7a;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.anonymous-signup-form input[type="text"],
+.anonymous-signup-form select,
+.signup-textarea textarea {
+  width: 100%;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  padding: 10px;
+  background: #ffffff;
+  color: #17202a;
+  font: inherit;
+}
+
+.anonymous-signup-form fieldset {
+  border: 1px solid #dbe4ef;
+  border-radius: 8px;
+  margin: 0;
+  padding: 12px;
+}
+
+.signup-skills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.signup-skills label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  padding: 8px;
+  background: #ffffff;
+}
+
+.signup-textarea textarea {
+  min-height: 88px;
+  resize: vertical;
+}
+
+.signup-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.signup-actions button {
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.signup-preview dl {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.signup-preview div {
+  display: grid;
+  gap: 2px;
+  border-radius: 8px;
+  padding: 10px;
+  background: #f4f7fb;
+}
+
+.signup-preview dt {
+  color: #5f6b7a;
+  font-size: 0.85rem;
+}
+
+.signup-preview dd {
+  margin: 0;
+  font-weight: 700;
+}
+
 .saved-drafts {
   display: grid;
   gap: 10px;

@@ -2,14 +2,16 @@ import { useState } from "react";
 import messyReports from "../fixtures/phase-0/messy-reports.json";
 import { EmptyState } from "../components/EmptyState";
 import { Phase0RawInfoPanel } from "../features/phase-0/Phase0RawInfoPanel";
+import { Phase0VolunteerSignupPanel } from "../features/phase-0/Phase0VolunteerSignupPanel";
 import { Phase0Workbench } from "../features/phase-0/Phase0Workbench";
 import type { Phase0MessyRecord } from "../features/phase-0/phase0-types";
 
-type TabKey = "raw" | "workbench";
+type TabKey = "raw" | "workbench" | "signup";
 
 const tabs: Array<{ key: TabKey; label: string }> = [
   { key: "raw", label: "原始資訊" },
   { key: "workbench", label: "整理工作台" },
+  { key: "signup", label: "志工報名" },
 ];
 
 const phase0Records = messyReports satisfies Phase0MessyRecord[];
@@ -58,12 +60,14 @@ export function App() {
             selectedRecordId={selectedRecordId}
             onSelect={selectForWorkbench}
           />
-        ) : (
+        ) : activeTab === "workbench" ? (
           <Phase0Workbench
             records={phase0Records}
             selectedRecordId={selectedRecordId}
             onSelect={setSelectedRecordId}
           />
+        ) : (
+          <Phase0VolunteerSignupPanel />
         )}
       </section>
     </main>
